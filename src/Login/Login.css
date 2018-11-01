@@ -1,1 +1,7 @@
-ECHO est  activado.
+TextField{
+    margin: 1%
+}
+.picker{
+    right: 0;
+    position: absolute;
+}
