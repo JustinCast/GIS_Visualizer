@@ -7,12 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './login/login.component';
 import { LoginLocalDBComponent } from './login-local-db/login-local-db.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    LoginLocalDBComponent
+    LoginLocalDBComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

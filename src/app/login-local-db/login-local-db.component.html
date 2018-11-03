@@ -1,11 +1,18 @@
 <form class="container">
-    <mat-form-field>
-      <input color="secondary" matInput type="text" placeholder="Username">
-    </mat-form-field> 
-    <mat-form-field>
-      <input color="secondary" matInput type="password" placeholder="Passoword">
-    </mat-form-field> 
-    <div class="container text-center">
-      <button mat-stroked-button><mat-icon>done</mat-icon></button>
-    </div>
+  <div class="container text-center">
+    <mat-radio-group>
+      <mat-radio-button class="m-2" value="1">Login</mat-radio-button>
+      <mat-radio-button class="m-2" value="2">Create user</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <mat-form-field>
+    <input color="secondary" matInput type="text" placeholder="Username">
+  </mat-form-field> 
+  <mat-form-field>
+    <input color="secondary" matInput type="password" placeholder="Passoword">
+  </mat-form-field> 
+  <hr>
+  <div class="container text-center">
+    <button mat-stroked-button><mat-icon>done</mat-icon></button>
+  </div>
 </form>

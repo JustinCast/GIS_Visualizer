@@ -22,8 +22,8 @@ export class DialogManagerService {
 
   openLocalConnection() {
     const dialogRef = this.dialog.open(LoginLocalDBComponent, {
-      width: '35%',
-      height: '25%',
+      width: '50%',
+      height: '38%',
       panelClass: 'dialog'
     });
 
