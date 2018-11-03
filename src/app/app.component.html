@@ -1,5 +1,21 @@
-<div class="container pt-2">
-  <div class="text-right">
-    <button (click)="openConnectionDialog()" mat-raised-button>Connect</button>
+<nav id="main-nav" class="shadow navbar navbar-light mb-5">
+  <a id="logo" class="navbar-brand pull-left text-center" href="/">
+    P3DB2
+  </a>
+  <div class="navbar-expand mr-auto">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" (click)="openLocal()">Local connection</a>
+      <a class="nav-item nav-link" (click)="openConnectionDialog()">DB link Connection</a>
+    </div>
   </div>
-</div>
+  <div class="navbar-expand ml-auto navbar-nav">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="/" target="_blank">
+        <i class="fa fa-instagram"></i>
+      </a>
+      <a class="nav-item nav-link" href="/" target="_blank">
+        <i class="fa fa-facebook"></i>
+      </a>
+    </div>
+  </div>
+</nav>

@@ -13,4 +13,8 @@ export class AppComponent {
   openConnectionDialog() {
     this.dialogManager.openConnectionDialog();
   }
+
+  openLocal() {
+    this.dialogManager.openLocalConnection();
+  }
 }
