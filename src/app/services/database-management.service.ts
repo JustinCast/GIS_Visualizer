@@ -1,12 +1,25 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Conn } from "../models/conn";
+import { WorkSpace } from "../models/workspace";
 
 @Injectable({
   providedIn: "root"
 })
-export class DatabaseManagementService {
+export class DatabaseManagementService implements OnInit {
+  ws = new WorkSpace();
   constructor(private _http: HttpClient) {}
+
+  ngOnInit() {
+    this.ws.xmin = 0.0;
+    this.ws.ymin = 0.0;
+    this.ws.xmax = 0.0;
+    this.ws.ymax = 0.0;
+    this.ws.width = 0.0;
+    this.ws.height = 0.0;
+    this.ws.factorP = 0.0;
+    this.ws.capas = new Array();
+  }
 
   updateShapes(conn: Conn) {
     this._http.get(

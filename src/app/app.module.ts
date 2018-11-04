@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginLocalDBComponent } from './login-local-db/login-local-db.component';
 import { MapComponent } from './map/map.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     LoginComponent,
