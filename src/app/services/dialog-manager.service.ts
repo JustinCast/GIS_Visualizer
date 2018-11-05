@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { LoginComponent } from '../login/login.component';
 import { LoginLocalDBComponent } from '../login-local-db/login-local-db.component';
+import { ChargeWorkspaceDialogComponent } from '../charge-workspace-dialog/charge-workspace-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,13 @@ export class DialogManagerService {
     });
 
     return dialogRef.afterClosed();
+  }
+
+  openLoadWorkspaceComponent() {
+    const dialogRef = this.dialog.open(ChargeWorkspaceDialogComponent, {
+      width: '50%',
+      height: '80%',
+      panelClass: 'dialog'
+    })
   }
 }

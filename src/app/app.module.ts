@@ -11,13 +11,15 @@ import { MapComponent } from './map/map.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ColorPickerModule } from 'ngx-color-picker';
+import { ChargeWorkspaceDialogComponent } from './charge-workspace-dialog/charge-workspace-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LoginLocalDBComponent,
-    MapComponent
+    MapComponent,
+    ChargeWorkspaceDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
   ],
   entryComponents: [
     LoginComponent,
-    LoginLocalDBComponent
+    LoginLocalDBComponent,
+    ChargeWorkspaceDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

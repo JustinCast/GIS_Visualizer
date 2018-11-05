@@ -17,4 +17,6 @@ export class AppComponent {
   openLocal() {
     this.dialogManager.openLocalConnection();
   }
+
+  openLoadWorkspaceDialog(){}
 }
