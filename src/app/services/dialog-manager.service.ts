@@ -13,7 +13,7 @@ export class DialogManagerService {
   openConnectionDialog() {
     const dialogRef = this.dialog.open(LoginComponent, {
       width: '50%',
-      height: '70%',
+      height: '80%',
       panelClass: 'dialog'
     });
 

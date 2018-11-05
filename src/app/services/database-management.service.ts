@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Conn } from "../models/conn";
+import { Layer } from "../models/conn";
 import { WorkSpace } from "../models/workspace";
 
 @Injectable({
@@ -98,15 +98,15 @@ export class DatabaseManagementService implements OnInit {
     }
   }
 
-  updateShapes(conn: Conn) {
-    conn.actualizarFiguras = function() {
+  updateShapes(layer: Layer) {
+    layer.actualizarFiguras = function() {
       this.updateShapes(this);
     };
     this._http
       .get(
-        `http://localhost:3000?host=${conn.host}&port=${conn.port}&
-      dbname=${conn.dbname}&user=${conn.user}&password=
-      ${conn.password}&geotable=${conn.geoTable}&schema=${conn.schema}`
+        `http://localhost:3000?host=${layer.host}&port=${layer.port}&
+      dbname=${layer.dbname}&user=${layer.user}&password=
+      ${layer.password}&geotable=${layer.geoTable}&schema=${layer.schema}`
       )
       .subscribe(
         success => console.log(success),
@@ -123,8 +123,8 @@ export class DatabaseManagementService implements OnInit {
   }
 
   init() {
-    this.widthSVG = document.getElementById("misvg").width.baseVal.value;
-    this.heightSVG = document.getElementById("misvg").height.baseVal.value;
+    this.widthSVG = Number(document.getElementById("misvg").style.width);
+    this.heightSVG = Number(document.getElementById("misvg").style.height);
   }
 
   errorHandler(err: HttpErrorResponse) {

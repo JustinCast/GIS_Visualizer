@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseManagementService } from '../services/database-management.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Conn } from '../models/conn';
+import { Layer } from '../models/conn';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +10,7 @@ import { Conn } from '../models/conn';
 })
 export class LoginComponent implements OnInit {
   layerGroup: FormGroup; 
+  color: '#2883e9';
   constructor(private db: DatabaseManagementService, private _fb: FormBuilder) { 
     this.layerGroup = this._fb.group({
       'host': ['', Validators.required],
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    let conn = new Conn();
+    let conn = new Layer();
     conn.host = this.layerGroup.get('host').value;
     conn.port = this.layerGroup.get('port').value;
     conn.dbname = this.layerGroup.get('dbname').value;

@@ -1,4 +1,4 @@
-export class Conn {
+export class Layer {
   constructor(
     public host?: string,
     public port?: number,
@@ -9,6 +9,7 @@ export class Conn {
     public schema?: string,
     public color?: string,
     public opacity?: number,
-    public actualizarFiguras?: any
+    public actualizarFiguras?: any,
+    public shapes?: string
   ) {}
 }

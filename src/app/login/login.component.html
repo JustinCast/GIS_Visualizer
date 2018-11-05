@@ -15,6 +15,9 @@
     <input color="secondary" matInput type="text" placeholder="Password">
   </mat-form-field>
   <mat-form-field>
+    <input matInput [(colorPicker)]="color" [style.background]="color"/>
+  </mat-form-field>
+  <mat-form-field>
     <input color="secondary" matInput type="text" placeholder="Schema">
   </mat-form-field>
   <mat-form-field>
