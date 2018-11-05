@@ -5,7 +5,8 @@ import {
   MatIconModule,
   MatInputModule,
   MatDialogModule,
-  MatRadioModule
+  MatRadioModule,
+  MatTabsModule
 } from "@angular/material";
 @NgModule({
   declarations: [],
@@ -15,14 +16,16 @@ import {
     MatIconModule,
     MatInputModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTabsModule
   ],
   exports: [
     MatButtonModule,
     MatIconModule,
     MatInputModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTabsModule
   ]
 })
 export class MaterialModule {}
