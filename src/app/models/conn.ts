@@ -8,6 +8,7 @@ export class Conn {
     public geoTable?: string,
     public schema?: string,
     public color?: string,
-    public opacity?: number
+    public opacity?: number,
+    public actualizarFiguras?: any
   ) {}
 }
