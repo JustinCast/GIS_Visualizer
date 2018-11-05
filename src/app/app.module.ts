@@ -11,13 +11,15 @@ import { MapComponent } from './map/map.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ColorPickerModule } from 'ngx-color-picker';
+import { StatisticComponent } from './statistic/statistic.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LoginLocalDBComponent,
-    MapComponent
+    MapComponent,
+    StatisticComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
   ],
   entryComponents: [
     LoginComponent,
-    LoginLocalDBComponent
+    LoginLocalDBComponent,
+    StatisticComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

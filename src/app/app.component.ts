@@ -17,4 +17,9 @@ export class AppComponent {
   openLocal() {
     this.dialogManager.openLocalConnection();
   }
+
+  openStatisticDialog() {
+    this.dialogManager.openStatisticDialog();
+  }
+
 }
