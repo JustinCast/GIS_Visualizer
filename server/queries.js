@@ -1,10 +1,22 @@
 const { Client } = require("pg");
 var client;
 const connstring;
-async function login(req, res) {
+const dblinkString;
+async function loginDBLink(req, res) {
   try {
     client = new Client({ connectionString: String(req.body.conn) });
-    connstring = String(req.body.conn);
+    dblinkString = String(req.body.conn);
+    await client.connect();
+    res.status(200).json({ logged: true });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function loginLocal(req, res) {
+  try {
+    client = new Client({ connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2` });
+    connstring = `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`;
     await client.connect();
     res.status(200).json({ logged: true });
   } catch (error) {
@@ -43,6 +55,7 @@ async function save(req, res) {
 
 module.exports = {
   column_concat: column_concat,
-  login: login,
+  loginLocal: loginLocal,
+  loginDBLink: loginDBLink,
   st_asgeojson: st_asgeojson
 }
