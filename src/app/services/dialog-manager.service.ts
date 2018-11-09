@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { LoginComponent } from '../login/login.component';
 import { LoginLocalDBComponent } from '../login-local-db/login-local-db.component';
 import { StatisticComponent } from '../statistic/statistic.component';
+import { PermitsComponent } from '../permits/permits.component';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,17 @@ export class DialogManagerService {
 
   openStatisticDialog(){
     const dialogRef = this.dialog.open(StatisticComponent, {
-      width: '50%',
+      width: '30',
+      height: '80%',
+      panelClass: 'dialog'
+    });
+
+    return dialogRef.afterClosed();
+  }
+
+  openPermitsDialog(){
+    const dialogRef = this.dialog.open(PermitsComponent, {
+      width: '30',
       height: '80%',
       panelClass: 'dialog'
     });

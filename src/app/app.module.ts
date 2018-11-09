@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { StatisticComponent } from './statistic/statistic.component';
+import { PermitsComponent } from './permits/permits.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { StatisticComponent } from './statistic/statistic.component';
     LoginComponent,
     LoginLocalDBComponent,
     MapComponent,
-    StatisticComponent
+    StatisticComponent,
+    PermitsComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import { StatisticComponent } from './statistic/statistic.component';
   entryComponents: [
     LoginComponent,
     LoginLocalDBComponent,
-    StatisticComponent
+    StatisticComponent,
+    PermitsComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

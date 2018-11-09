@@ -22,4 +22,8 @@ export class AppComponent {
     this.dialogManager.openStatisticDialog();
   }
 
+  openPermitsDialog() {
+    this.dialogManager.openPermitsDialog();
+  }
+
 }
