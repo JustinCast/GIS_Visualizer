@@ -1,3 +1,35 @@
-<p>
-  permits works!
-</p>
+<h2>Grant permissions to users</h2>
+<form class="text-center">
+  <mat-form-field>
+    <mat-select placeholder="User" >
+      <mat-option *ngFor="let user of users" [value]="user">
+        {{user}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <table class="table table-striped" cellspacing="1" cellpadding="1">
+    <tr>
+      <th>
+        <b>Table name</b>
+      </th>
+      <th>
+        <b>Delete</b>
+      </th>
+      <th>
+        <b>Modify</b>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        Users
+      </th>
+      <th>
+        <mat-checkbox></mat-checkbox>
+      </th>
+      <th>
+        <mat-checkbox></mat-checkbox>
+      </th>
+    </tr>
+
+  </table> 
+</form>

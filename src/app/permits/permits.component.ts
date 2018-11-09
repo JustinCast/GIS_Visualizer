@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PermitsComponent implements OnInit {
 
+  users: string[]=['luis','Justin']
   constructor() { }
 
   ngOnInit() {
