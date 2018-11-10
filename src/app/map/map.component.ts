@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { DatabaseManagementService } from "../services/database-management.service";
+import { Layer } from "../models/conn";
 
 @Component({
   selector: "app-map",
@@ -12,5 +13,6 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.db.updateShapes(new Layer());
   }
 }

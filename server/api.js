@@ -3,7 +3,7 @@ const router = express.Router();
 
 const queries = require('./queries')
 
-// router.post('', queries.login);
+router.post('/initial', queries.initial);
 // router.get('', queries.getSchemas);
 
 module.exports = router;

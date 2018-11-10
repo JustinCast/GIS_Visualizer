@@ -102,21 +102,24 @@ export class DatabaseManagementService implements OnInit {
     layer.actualizarFiguras = function() {
       this.updateShapes(this);
     };
+    
+    let body = {
+      schema: 'public',
+      geotabla: 'fincastec'
+    };
     this._http
-      .get<any>(
-        `http://localhost:3000?host=${layer.host}&port=${layer.port}&
-      dbname=${layer.dbname}&user=${layer.user}&password=
-      ${layer.password}&geotable=${layer.geotabla}&schema=${layer.schema}`
-      )
+      .post<any>(
+        `http://localhost:8080/api/v1/initial`, body)
       .subscribe(
         success => {
-          layer.figuras = eval('({"geometria":' + success.responseText + "})");
+          console.log(success);
+          /*layer.figuras = eval('({"geometria":' + success.responseText + "})");
           for (var i in layer.figuras.geometria) {
             layer.figuras.geometria[i].geom = eval(
               "(" + layer.figuras.geometria[i].geom + ")"
             );
           }
-          this.dibujarPoligonos();
+          this.dibujarPoligonos();*/
         },
         (err: HttpErrorResponse) => this.errorHandler(err)
       );

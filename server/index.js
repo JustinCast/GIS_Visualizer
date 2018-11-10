@@ -4,7 +4,7 @@ const path = require("path");
 const app = express();
 
 // API file for interacting with MongoDB
-const api = require("./routes/api");
+const api = require("./api");
 
 /**
  * Server config
@@ -13,7 +13,7 @@ function config() {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Origin", "http://localhost:4200");
     res.header(
       "Access-Control-Allow-Methods",
       "GET, POST, PUT, DELETE, OPTIONS"
