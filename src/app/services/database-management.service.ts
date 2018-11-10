@@ -103,13 +103,21 @@ export class DatabaseManagementService implements OnInit {
       this.updateShapes(this);
     };
     this._http
-      .get(
+      .get<any>(
         `http://localhost:3000?host=${layer.host}&port=${layer.port}&
       dbname=${layer.dbname}&user=${layer.user}&password=
-      ${layer.password}&geotable=${layer.geoTable}&schema=${layer.schema}`
+      ${layer.password}&geotable=${layer.geotabla}&schema=${layer.schema}`
       )
       .subscribe(
-        success => console.log(success),
+        success => {
+          layer.figuras = eval('({"geometria":' + success.responseText + "})");
+          for (var i in layer.figuras.geometria) {
+            layer.figuras.geometria[i].geom = eval(
+              "(" + layer.figuras.geometria[i].geom + ")"
+            );
+          }
+          this.dibujarPoligonos();
+        },
         (err: HttpErrorResponse) => this.errorHandler(err)
       );
   }

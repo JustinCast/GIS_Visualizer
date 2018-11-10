@@ -5,11 +5,11 @@ export class Layer {
     public dbname?: string,
     public user?: string,
     public password?: string,
-    public geoTable?: string,
+    public geotabla?: string,
     public schema?: string,
     public color?: string,
-    public opacity?: number,
+    public transparencia?: number,
     public actualizarFiguras?: any,
-    public shapes?: string
+    public figuras?: any
   ) {}
 }
