@@ -64,35 +64,55 @@ async function initial(req, res) {
     client = new Client({
       connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
     });
-    await client.connect();
-    let query =
-      "select string_agg(column_name,',') from information_schema.columns where table_schema='public' and table_name='fincastec' and not(udt_name='geometry');";
-    let colums_desc = await client.query(
-      `SELECT string_agg(column_name,',') from information_schema.columns where 
-      table_schema='public' and table_name='fincastec' and not(udt_name='geometry');`
-    );
+    //await client.connect();
+    var colums_desc;
+    var colums_geom;
+    var query;
+    await client.connect(err => {
+      if (err) {
+        client.end();
+        console.log(err.message);
+        res.status(400).json(err.message);
+      } else {
+        const query1 =
+          `select string_agg(column_name,',') from information_schema.columns 
+            where table_schema='` +
+          req.body.schema +
+          `' and table_name='` +
+          req.body.geotabla +
+          `' and not(udt_name='geometry')`;
+        const query2 =
+          `select string_agg('st_asgeojson('||column_name||')::json as geom',',') from information_schema.columns 
+            where table_schema='` +
+          req.body.schema +
+          `' and table_name='` +
+          req.body.geotabla +
+          `' and udt_name='geometry'`;
+        client.query(query1).then(data => {
+          this.colums_desc = data.rows;
+        });
+        client.query(query2).then(data2 => {
+          this.colums_geom = data2.rows;
+          query =
+            `select ` +
+            this.colums_desc[0].string_agg +
+            `,st_xmin(geom) xmin,st_xmax(geom) xmax,st_ymin(geom) ymin,st_ymax(geom) ymax,` +
+            this.colums_geom[0].string_agg +
+            ` from ` +
+            req.body.schema +
+            `.` +
+            req.body.geotabla;
 
-    // query = `select string_agg('st_asgeojson('||column_name||')::json as geom',',') from information_schema.columns
-    // where table_schema=${req.body.schema} and table_name=${
-    //   req.body.geotabla
-    // } and udt_name='geometry'`;
-
-    // try {
-    //   let colums_geom = client.query(query);
-
-    //   query = `select ${colums_desc[0]},
-    //             st_xmin(geom) xmin,
-    //             st_xmax(geom) xmax,
-    //             st_ymin(geom) ymin,
-    //             st_ymax(geom) ymax,
-    //             ${colums_geom[0]} from ${req.body.schema}.${req.body.geotabla}`;
-    //   let result = client.query(query);
-    //   res.status(200).send(result);
-    // } catch (error) {
-    //   console.log("Error anidado: " + error)
-    // }
-    console.log(colums_desc);
-    res.status(200).json({ result: colums_desc });
+          client
+            .query(query)
+            .then(data3 => {
+              res.status(200).json(data3.rows);
+              client.end();
+            })
+            .catch(e => console.error(e.stack));
+        });
+      }
+    });
   } catch (error) {
     console.log("Error: " + error);
   }

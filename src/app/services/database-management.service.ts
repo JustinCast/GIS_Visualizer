@@ -52,6 +52,7 @@ export class DatabaseManagementService implements OnInit {
     this.ws.height = this.ws.ymax - this.ws.ymin;
     this.ws.factorP = 0.0;
     var misvg = document.getElementById("misvg");
+    console.log(this.ws)
     misvg.setAttribute(
       "viewBox",
       this.ws.xmin +
@@ -68,6 +69,7 @@ export class DatabaseManagementService implements OnInit {
     this.actualizar_limites();
 
     var misvg = document.getElementById("misvg");
+    console.log(misvg);
 
     for (var i in this.ws.capas) {
       for (var j in this.ws.capas[i].figuras.geometria) {
@@ -102,6 +104,7 @@ export class DatabaseManagementService implements OnInit {
     layer.actualizarFiguras = function() {
       this.updateShapes(this);
     };
+    this.ws.capas.push(layer);
     
     let body = {
       schema: 'public',
@@ -112,14 +115,13 @@ export class DatabaseManagementService implements OnInit {
         `http://localhost:8080/api/v1/initial`, body)
       .subscribe(
         success => {
-          console.log(success);
-          /*layer.figuras = eval('({"geometria":' + success.responseText + "})");
+          layer.figuras.geometria=success;
+          console.log(layer.figuras.geometria);
           for (var i in layer.figuras.geometria) {
-            layer.figuras.geometria[i].geom = eval(
-              "(" + layer.figuras.geometria[i].geom + ")"
-            );
+            layer.figuras.geometria[i].geom = layer.figuras.geometria[i].geom;
+            console.log(layer.figuras.geometria[i].geom);
           }
-          this.dibujarPoligonos();*/
+          this.dibujarPoligonos();
         },
         (err: HttpErrorResponse) => this.errorHandler(err)
       );
