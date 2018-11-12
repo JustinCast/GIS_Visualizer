@@ -33,15 +33,19 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log(this.color)
-    /*let conn = new Layer();
+    let conn = new Layer();
     conn.host = this.layerGroup.get('host').value;
     conn.port = this.layerGroup.get('port').value;
     conn.dbname = this.layerGroup.get('dbname').value;
     conn.user = this.layerGroup.get('user').value;
     conn.password = this.layerGroup.get('password').value;
-    conn.geoTable = this.layerGroup.get('tablename').value;
+    conn.geotabla = this.layerGroup.get('tablename').value;
     conn.schema = this.layerGroup.get('schema').value;
-    this.db.updateShapes(conn);*/
+    let body = {
+      schema: "public",
+      geotabla: "edificios"
+    }
+    this.db.updateShapes(conn, body);
   }
 
 }

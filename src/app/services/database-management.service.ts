@@ -100,16 +100,12 @@ export class DatabaseManagementService implements OnInit {
     }
   }
 
-  updateShapes(layer: Layer) {
+  updateShapes(layer: Layer, body: any) {
     layer.actualizarFiguras = function() {
       this.updateShapes(this);
     };
     this.ws.capas.push(layer);
-    
-    let body = {
-      schema: 'public',
-      geotabla: 'fincastec'
-    };
+  
     this._http
       .post<any>(
         `http://localhost:8080/api/v1/initial`, body)
