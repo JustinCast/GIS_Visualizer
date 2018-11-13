@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
       'user': ['', Validators.required],
       'password': ['', Validators.required],
       'schema': ['', Validators.required],
-      'tablename': ['', Validators.required]
+      'tablename': ['', Validators.required],
+      'tablename': ['', Validators.required],
     })
   }
 
