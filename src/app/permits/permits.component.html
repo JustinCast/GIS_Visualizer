@@ -1,4 +1,4 @@
-<h2>Grant permissions to users</h2>
+<h2>Grant permissions to users for select </h2>
 <form class="text-center">
   <mat-form-field>
     <mat-select placeholder="User" >
@@ -6,30 +6,23 @@
         {{user}}
       </mat-option>
     </mat-select>
-  </mat-form-field>
-  <table class="table table-striped" cellspacing="1" cellpadding="1">
-    <tr>
-      <th>
-        <b>Table name</b>
-      </th>
-      <th>
-        <b>Delete</b>
-      </th>
-      <th>
-        <b>Modify</b>
-      </th>
-    </tr>
-    <tr>
-      <th>
-        Users
-      </th>
-      <th>
-        <mat-checkbox></mat-checkbox>
-      </th>
-      <th>
-        <mat-checkbox></mat-checkbox>
-      </th>
-    </tr>
+  </mat-form-field>  
 
-  </table> 
+  <mat-expansion-panel  *ngFor="let permits of dataSource">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{permits.tableName}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-selection-list>
+          <mat-list-option selected="{{column.select}}" *ngFor="let column of permits.columns">
+            {{column.columName}}
+          </mat-list-option>
+        </mat-selection-list>
+    </mat-expansion-panel>
 </form>
+<div class="container text-center" style="padding-top: 2%">
+    <button mat-button>Save changes</button>
+</div>
+

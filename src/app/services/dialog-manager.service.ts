@@ -44,7 +44,7 @@ export class DialogManagerService {
 
   openPermitsDialog(){
     const dialogRef = this.dialog.open(PermitsComponent, {
-      width: '30',
+      width: '60%',
       height: '80%',
       panelClass: 'dialog'
     });
