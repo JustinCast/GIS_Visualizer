@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material';
 import { LoginComponent } from '../login/login.component';
 import { LoginLocalDBComponent } from '../login-local-db/login-local-db.component';
 import { ChargeWorkspaceDialogComponent } from '../charge-workspace-dialog/charge-workspace-dialog.component';
+import { StatisticComponent } from '../statistic/statistic.component';
+import { PermitsComponent } from '../permits/permits.component';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +39,24 @@ export class DialogManagerService {
       height: '80%',
       panelClass: 'dialog'
     })
+  }
+  openStatisticDialog(){
+    const dialogRef = this.dialog.open(StatisticComponent, {
+      width: '30',
+      height: '80%',
+      panelClass: 'dialog'
+    });
+
+    return dialogRef.afterClosed();
+  }
+
+  openPermitsDialog(){
+    const dialogRef = this.dialog.open(PermitsComponent, {
+      width: '60%',
+      height: '80%',
+      panelClass: 'dialog'
+    });
+
+    return dialogRef.afterClosed();
   }
 }

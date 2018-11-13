@@ -21,4 +21,12 @@ export class AppComponent {
   openLoadWorkspaceDialog(){
     this.dialogManager.openLoadWorkspaceComponent();
   }
+  openStatisticDialog() {
+    this.dialogManager.openStatisticDialog();
+  }
+
+  openPermitsDialog() {
+    this.dialogManager.openPermitsDialog();
+  }
+
 }

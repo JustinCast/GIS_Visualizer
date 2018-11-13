@@ -1,0 +1,28 @@
+<h2>Grant permissions to users for select </h2>
+<form class="text-center">
+  <mat-form-field>
+    <mat-select placeholder="User" >
+      <mat-option *ngFor="let user of users" [value]="user">
+        {{user}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>  
+
+  <mat-expansion-panel  *ngFor="let permits of dataSource">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{permits.tableName}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-selection-list>
+          <mat-list-option selected="{{column.select}}" *ngFor="let column of permits.columns">
+            {{column.columName}}
+          </mat-list-option>
+        </mat-selection-list>
+    </mat-expansion-panel>
+</form>
+<div class="container text-center" style="padding-top: 2%">
+    <button mat-button>Save changes</button>
+</div>
+

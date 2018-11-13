@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ChargeWorkspaceDialogComponent } from './charge-workspace-dialog/charge-workspace-dialog.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { StatisticComponent } from './statistic/statistic.component';
+import { PermitsComponent } from './permits/permits.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
     LoginComponent,
     LoginLocalDBComponent,
     MapComponent,
-    ChargeWorkspaceDialogComponent
+    ChargeWorkspaceDialogComponent,
+    StatisticComponent,
+    PermitsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,9 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
   entryComponents: [
     LoginComponent,
     LoginLocalDBComponent,
-    ChargeWorkspaceDialogComponent
+    ChargeWorkspaceDialogComponent,
+    StatisticComponent,
+    PermitsComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
