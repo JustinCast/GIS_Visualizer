@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     layer.color= this.color;
     layer.transparencia = this.value/10;
     layer.figuras= new Object();
-    console.log(layer.schema);
+    this.db.loading = true;
     this.db.updateShapes(layer);
   }
 

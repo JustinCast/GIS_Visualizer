@@ -20,6 +20,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     layer.figuras = new Object();
     layer.schema = "public";
     layer.geotabla = "fincastec";
+    this.db.loading = true;
     this.db.updateShapes(layer);
   }
   ngAfterViewInit() {

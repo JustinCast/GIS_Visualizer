@@ -1,6 +1,10 @@
-<svg class="card container p-4 shadow" width='500px' height='500px' id="misvg">
-</svg>
-<ngx-image-zoom
-    [thumbImage]=myThumbnail
-    [fullImage]=myFullresImage
-></ngx-image-zoom>
+<svg
+ class="card container p-4 shadow"
+ width="700px"
+ height="500px"
+ id="misvg"
+></svg>
+
+<div *ngIf="db.loading" class="container shadow-lg text-center mt-4">
+    <mat-progress-bar class="shadow" mode="buffer"></mat-progress-bar>
+</div>

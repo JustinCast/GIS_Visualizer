@@ -10,6 +10,7 @@ export class DatabaseManagementService implements OnInit {
   ws = new WorkSpace();
   widthSVG = 0;
   heightSVG = 0;
+  loading: boolean = false;
   constructor(private _http: HttpClient) {}
 
   ngOnInit() {
@@ -68,8 +69,7 @@ export class DatabaseManagementService implements OnInit {
     this.actualizar_limites();
 
     var misvg = document.getElementById("misvg");
-    console.log(misvg);
-
+    console.log(this.ws);
     for (var i in this.ws.capas) {
       for (var j in this.ws.capas[i].figuras.geometria) {
         var n_poly = document.createElementNS(
@@ -110,6 +110,7 @@ export class DatabaseManagementService implements OnInit {
         `http://localhost:8080/api/v1/initial`, layer)
       .subscribe(
         success => {
+          this.loading = false;
           layer.figuras.geometria=success;
           for (var i in layer.figuras.geometria) {
             layer.figuras.geometria[i].geom = layer.figuras.geometria[i].geom;
@@ -134,6 +135,7 @@ export class DatabaseManagementService implements OnInit {
   }
 
   errorHandler(err: HttpErrorResponse) {
+    this.loading = false;
     if (err.error instanceof Error) {
       // Error del lado del cliente
       console.log("An error occurred:", err.error.message);
