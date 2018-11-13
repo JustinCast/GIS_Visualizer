@@ -18,36 +18,10 @@ export class MapComponent implements OnInit, AfterViewInit {
     layer.color = "red";
     layer.transparencia = 0.6;
     layer.figuras = new Object();
-    let body = {
-      schema: "public",
-      geotabla: "fincastec"
-    };
-    this.db.updateShapes(layer, body);
+    layer.schema = "public";
+    layer.geotabla = "fincastec";
+    this.db.updateShapes(layer);
   }
   ngAfterViewInit() {
-    // initializing the function
-    let svgPanZoom: SvgPanZoom.Instance = SvgPanZoom("#misvg", {
-      viewportSelector: ".svg-pan-zoom_viewport",
-      panEnabled: true,
-      controlIconsEnabled: false,
-      zoomEnabled: true,
-      dblClickZoomEnabled: true,
-      mouseWheelZoomEnabled: true,
-      preventMouseEventsDefault: true,
-      zoomScaleSensitivity: 0.2,
-      minZoom: 0.5,
-      maxZoom: 10,
-      fit: true,
-      contain: false,
-      center: true,
-      refreshRate: "auto",
-      beforeZoom: function() {},
-      onZoom: function() {},
-      beforePan: function() {},
-      onPan: function() {},
-      onUpdatedCTM: function() {},
-      eventsListenerElement: null
-    });
-    /* see typing definiton for more APIs. */
   }
 }

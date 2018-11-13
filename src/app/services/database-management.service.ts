@@ -52,7 +52,6 @@ export class DatabaseManagementService implements OnInit {
     this.ws.height = this.ws.ymax - this.ws.ymin;
     this.ws.factorP = 0.0;
     var misvg = document.getElementById("misvg");
-    console.log(this.ws)
     misvg.setAttribute(
       "viewBox",
       this.ws.xmin +
@@ -100,7 +99,7 @@ export class DatabaseManagementService implements OnInit {
     }
   }
 
-  updateShapes(layer: Layer, body: any) {
+  updateShapes(layer: Layer) {
     layer.actualizarFiguras = function() {
       this.updateShapes(this);
     };
@@ -108,14 +107,12 @@ export class DatabaseManagementService implements OnInit {
   
     this._http
       .post<any>(
-        `http://localhost:8080/api/v1/initial`, body)
+        `http://localhost:8080/api/v1/initial`, layer)
       .subscribe(
         success => {
           layer.figuras.geometria=success;
-          console.log(layer.figuras.geometria);
           for (var i in layer.figuras.geometria) {
             layer.figuras.geometria[i].geom = layer.figuras.geometria[i].geom;
-            console.log(layer.figuras.geometria[i].geom);
           }
           this.dibujarPoligonos();
         },

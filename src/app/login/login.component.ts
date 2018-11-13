@@ -23,9 +23,8 @@ export class LoginComponent implements OnInit {
       'dbname': ['', Validators.required],
       'user': ['', Validators.required],
       'password': ['', Validators.required],
-      'schema': ['', Validators.required],
-      'tablename': ['', Validators.required],
-      'tablename': ['', Validators.required],
+      'schema': ['public', Validators.required],
+      'tablename': ['', Validators.required]
     })
   }
 
@@ -46,24 +45,20 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log(this.color);
-    let conn = new Layer();
-    conn.host = this.layerGroup.get('host').value;
-    conn.port = this.layerGroup.get('port').value;
-    conn.dbname = this.layerGroup.get('dbname').value;
-    conn.user = this.layerGroup.get('user').value;
-    conn.password = this.layerGroup.get('password').value;
-    conn.geotabla = this.layerGroup.get('tablename').value;
-    conn.schema = this.layerGroup.get('schema').value;
-    let body = {
-      schema: 'public',
-      geotabla: conn.geotabla
-    }
-    console.log(body);
     let layer = new Layer();
+    layer.host = this.layerGroup.get('host').value;
+    layer.port = this.layerGroup.get('port').value;
+    layer.dbname = this.layerGroup.get('dbname').value;
+    layer.user = this.layerGroup.get('user').value;
+    layer.password = this.layerGroup.get('password').value;
+    layer.geotabla = this.layerGroup.get('tablename').value;
+    layer.schema = this.layerGroup.get('schema').value;
+
     layer.color= this.color;
-    layer.transparencia = this.value;
+    layer.transparencia = this.value/10;
     layer.figuras= new Object();
-    this.db.updateShapes(layer, body);
+    console.log(layer.schema);
+    this.db.updateShapes(layer);
   }
 
 }
