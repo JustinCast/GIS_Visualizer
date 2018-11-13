@@ -1,29 +1,94 @@
-<form class="container text-center" (ngSubmit)="onSubmit()">
+<form
+  class="container text-center"
+  [formGroup]="layerGroup"
+  (ngSubmit)="onSubmit()"
+>
   <mat-form-field>
-    <input color="secondary" matInput type="text" placeholder="Host">
+    <input
+      color="secondary"
+      matInput
+      type="text"
+      [formControl]="layerGroup.get('host')"
+      placeholder="Host"
+      value="p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com"
+    />
   </mat-form-field>
   <mat-form-field>
-    <input color="secondary" matInput type="text" placeholder="Port">
+    <input
+      color="secondary"
+      [formControl]="layerGroup.get('port')"
+      matInput
+      type="number"
+      placeholder="Port"
+      value="5432"
+    />
   </mat-form-field>
   <mat-form-field>
-    <input color="secondary" matInput type="text" placeholder="DB name">
+    <input
+      color="secondary"
+      matInput
+      type="text"
+      [formControl]="layerGroup.get('dbname')"
+      value="p3bd2"
+      placeholder="DB name"
+    />
   </mat-form-field>
   <mat-form-field>
-    <input color="secondary" matInput type="text" placeholder="User">
+    <input
+      color="secondary"
+      matInput
+      type="text"
+      [formControl]="layerGroup.get('user')"
+      placeholder="User"
+      value="usr_p3bd2"
+    />
   </mat-form-field>
   <mat-form-field>
-    <input color="secondary" matInput type="text" placeholder="Password">
+    <input
+      color="secondary"
+      matInput
+      type="text"
+      [formControl]="layerGroup.get('password')"
+      placeholder="Password"
+      value="usr_p3bd2"
+    />
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(colorPicker)]="color" [style.background]="color"/>
+    <input matInput [(colorPicker)]="color" [style.background]="color" />
   </mat-form-field>
   <mat-form-field>
-    <input color="secondary" matInput type="text" placeholder="Schema">
+    <input
+      color="secondary"
+      matInput
+      type="text"
+      [formControl]="layerGroup.get('schema')"
+      placeholder="Schema"
+      value="public"
+    />
   </mat-form-field>
   <mat-form-field>
-    <input color="secondary" matInput type="text" placeholder="Table name">
+    <input
+      color="secondary"
+      matInput
+      type="text"
+      [formControl]="layerGroup.get('tablename')"
+      placeholder="Table name"
+    />
   </mat-form-field>
+  <mat-slider
+    [max]="10"
+    [min]="0"
+    [step]="1"
+    [thumbLabel]="thumbLabel"
+    [tickInterval]="tickInterval"
+    [(ngModel)]="value"
+    [ngModelOptions]="{standalone: true}"
+    [vertical]="vertical"
+  >
+  </mat-slider>
   <div class="container text-center">
-    <button (click)="addLayer()" mat-stroked-button><mat-icon>done</mat-icon></button>
+    <button (click)="addLayer()" mat-stroked-button>
+      <mat-icon>done</mat-icon>
+    </button>
   </div>
 </form>

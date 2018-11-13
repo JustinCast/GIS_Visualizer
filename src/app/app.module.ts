@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ChargeWorkspaceDialogComponent } from './charge-workspace-dialog/charge-workspace-dialog.component';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ChargeWorkspaceDialogComponent } from './charge-workspace-dialog/charge
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    NgxImageZoomModule.forRoot()
   ],
   entryComponents: [
     LoginComponent,
