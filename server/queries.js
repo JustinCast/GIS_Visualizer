@@ -51,9 +51,7 @@ async function saveWorkspace(req, res) {
     ]
    )
    .then(() => {
-    client
-     .query(`SELECT id FROM workspace WHERE name = $1`, [req.body.name])
-     .then(id => res.status(201).json(id.rows[0].id));
+    res.send(201);
    })
    .catch(e => console.error(e.stack));
  } catch (error) {
