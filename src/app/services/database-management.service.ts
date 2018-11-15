@@ -119,10 +119,11 @@ export class DatabaseManagementService implements OnInit {
 
  saveWs(wsToSave: any) {
   this._http
-   .post<any>(`http://localhost:8080/api/v1/saveWorkspace`, this.wsBody)
+   .post<any>(`http://localhost:8080/api/v1/saveWorkspace`, this.wsBody(wsToSave))
    .subscribe(
     id => {
      this.ws.id = id;
+     console.log(id);
      this.saveLayer();
     },
     (err: HttpErrorResponse) => this.errorHandler(err)
@@ -130,11 +131,13 @@ export class DatabaseManagementService implements OnInit {
  }
 
  saveLayer() {
-  this._http.post<any>(`http://localhost:8080/api/v1/saveLayer`, this.layerBody)
-  .subscribe(
-    ok => console.log(ok),
-    (err: HttpErrorResponse) => this.errorHandler(err)
-  );
+  this.ws.capas.forEach(c => {
+    this._http.post<any>(`http://localhost:8080/api/v1/saveLayer`, this.layerBody(c))
+    .subscribe(
+      ok => console.log(ok),
+      (err: HttpErrorResponse) => this.errorHandler(err)
+    );
+  })
  }
 
  wsBody(wsTosave: any): object {
@@ -155,7 +158,7 @@ export class DatabaseManagementService implements OnInit {
   return new Object({
    name: layer.geotabla,
    color: layer.color,
-   opacity: layer.opacity,
+   opacity: layer.transparencia,
    id_workspace: this.ws.id
   });
  }

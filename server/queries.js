@@ -28,15 +28,20 @@ async function loginLocal(req, res) {
 
 async function saveWorkspace(req, res) {
  try {
+  client = new Client({
+    connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+   });
   await client.connect();
+  console.log(req.body);
   client
    .query(
     `INSERT INTO workspace(name, height, width, x_max, x_min, y_max, y_min, description, save_date) 
             VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
     [
-     req.body.ws,
+     req.body.name,
      req.body.height,
      req.body.width,
+     req.body.x_max,
      req.body.x_min,
      req.body.y_max,
      req.body.y_min,
@@ -46,8 +51,8 @@ async function saveWorkspace(req, res) {
    )
    .then(() => {
     client
-     .query(`SELECT id FROM workspace WHERE name = $1`, [req.body.ws])
-     .then(id => res.status(201).json(id));
+     .query(`SELECT id FROM workspace WHERE name = $1`, [req.body.name])
+     .then(id => res.status(201).json(id.rows[0].id));
    })
    .catch(e => console.error(e.stack));
  } catch (error) {
@@ -57,7 +62,11 @@ async function saveWorkspace(req, res) {
 
 async function saveLayer(req, res) {
  try {
+  client = new Client({
+    connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+   });
   await client.connect();
+  console.log(req.body);
   client
    .query(
     `INSERT INTO layer(name, color, opacity, id_workspace) VALUES($1, $2, $3, $4)`,
