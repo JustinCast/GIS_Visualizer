@@ -18,11 +18,11 @@ export class LoginComponent implements OnInit {
   value = 0;
   constructor(private db: DatabaseManagementService, private _fb: FormBuilder) { 
     this.layerGroup = this._fb.group({
-      'host': ['', Validators.required],
-      'port': ['', Validators.required],
-      'dbname': ['', Validators.required],
-      'user': ['', Validators.required],
-      'password': ['', Validators.required],
+      'host': ['p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com', Validators.required],
+      'port': [5432, Validators.required],
+      'dbname': ['p3bd2', Validators.required],
+      'user': ['usr_p3bd2', Validators.required],
+      'password': ['usr_p3bd2', Validators.required],
       'schema': ['public', Validators.required],
       'tablename': ['', Validators.required]
     })
@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
     layer.transparencia = this.value/10;
     layer.figuras= new Object();
     this.db.loading = true;
+    console.log(this.layerGroup.value);
     this.db.updateShapes(layer);
   }
 
