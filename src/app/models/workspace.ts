@@ -1,5 +1,6 @@
 export class WorkSpace {
     constructor(
+        public id?: number,
         public xmin?: number,
         public ymin?: number,
         public xmax?: number,

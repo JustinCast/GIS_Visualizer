@@ -26,15 +26,24 @@ async function loginLocal(req, res) {
  }
 }
 
-
 async function saveWorkspace(req, res) {
  try {
   await client.connect();
   client
-   .query(`INSERT INTO workspace(name, save_date) VALUES($1, $2)`, [
-    req.body.ws,
-    new Date()
-   ])
+   .query(
+    `INSERT INTO workspace(name, height, width, x_max, x_min, y_max, y_min, description, save_date) 
+            VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+    [
+     req.body.ws,
+     req.body.height,
+     req.body.width,
+     req.body.x_min,
+     req.body.y_max,
+     req.body.y_min,
+     req.body.description,
+     req.body.date
+    ]
+   )
    .then(() => {
     client
      .query(`SELECT id FROM workspace WHERE name = $1`, [req.body.ws])
