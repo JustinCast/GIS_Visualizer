@@ -11,6 +11,7 @@ export class DatabaseManagementService implements OnInit {
  widthSVG = 0;
  heightSVG = 0;
  loading: boolean = false;
+ saving: boolean = false;
  constructor(private _http: HttpClient) {}
 
  ngOnInit() {
@@ -122,6 +123,7 @@ export class DatabaseManagementService implements OnInit {
    .post<any>(`http://localhost:8080/api/v1/saveWorkspace`, this.wsBody(wsToSave))
    .subscribe(
     id => {
+      this.saving = false;
      this.ws.id = id;
      console.log(id);
     },
@@ -170,6 +172,7 @@ export class DatabaseManagementService implements OnInit {
 
  errorHandler(err: HttpErrorResponse) {
   this.loading = false;
+  this.saving = false;
   if (err.error instanceof Error) {
    // Error del lado del cliente
    console.log("An error occurred:", err.error.message);

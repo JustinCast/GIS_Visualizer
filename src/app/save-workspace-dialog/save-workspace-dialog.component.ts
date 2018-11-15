@@ -20,6 +20,7 @@ export class SaveWorkspaceDialogComponent implements OnInit {
  }
 
  onSubmit() {
+  this.db.saving = true;
   this.db.saveWs({
    name: this.saveWsGroup.get("name").value,
    date: this.saveWsGroup.get("date").value,

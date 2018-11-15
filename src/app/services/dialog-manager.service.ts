@@ -64,8 +64,8 @@ export class DialogManagerService {
 
   openSaveDialog() {
     const dialogRef = this.dialog.open(SaveWorkspaceDialogComponent, {
-      width: '30%',
-      height: '35%',
+      width: '35%',
+      height: '50%',
       panelClass: 'dialog'
     });
 

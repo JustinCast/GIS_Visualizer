@@ -51,7 +51,7 @@ async function saveWorkspace(req, res) {
     ]
    )
    .then(() => {
-    res.send(201);
+    res.sendStatus(201);
    })
    .catch(e => console.error(e.stack));
  } catch (error) {
