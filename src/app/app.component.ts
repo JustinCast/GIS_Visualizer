@@ -18,9 +18,6 @@ export class AppComponent {
     this.dialogManager.openLocalConnection();
   }
 
-  openLoadWorkspaceDialog(){
-    this.dialogManager.openLoadWorkspaceComponent();
-  }
   openStatisticDialog() {
     this.dialogManager.openStatisticDialog();
   }

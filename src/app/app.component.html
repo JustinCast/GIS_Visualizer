@@ -6,18 +6,17 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link" (click)="openLocal()">Local Connection - User Creation</a>
       <a class="nav-item nav-link" (click)="openConnectionDialog()">DB link Connection</a>
-      <a class="nav-item nav-link" (click)="openLoadWorkspaceDialog()">Charge workspace</a>
       <a class="nav-item nav-link" (click)="openStatisticDialog()">Statistics</a>
       <a class="nav-item nav-link" (click)="openPermitsDialog()">Permits</a>
     </div>
   </div>
   <div class="navbar-expand ml-auto navbar-nav">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" (click)="dialogManager.openSaveDialog()" target="_blank">
+      <a class="nav-item nav-link" (click)="dialogManager.openSaveDialog()">
         <mat-icon>save</mat-icon>
       </a>
-      <a class="nav-item nav-link" href="/" target="_blank">
-        <i class="fa fa-facebook"></i>
+      <a class="nav-item nav-link" (click)="dialogManager.openLoadWorkspaceComponent()">
+        <mat-icon>filter_hdr</mat-icon>
       </a>
     </div>
   </div>
