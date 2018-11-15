@@ -121,9 +121,20 @@ export class DatabaseManagementService implements OnInit {
   this._http
    .post<any>(`http://localhost:8080/api/v1/saveWorkspace`, this.wsBody)
    .subscribe(
-    id => (this.ws.id = id),
+    id => {
+     this.ws.id = id;
+     this.saveLayer();
+    },
     (err: HttpErrorResponse) => this.errorHandler(err)
    );
+ }
+
+ saveLayer() {
+  this._http.post<any>(`http://localhost:8080/api/v1/saveLayer`, this.layerBody)
+  .subscribe(
+    ok => console.log(ok),
+    (err: HttpErrorResponse) => this.errorHandler(err)
+  );
  }
 
  wsBody(wsTosave: any): object {
@@ -137,6 +148,15 @@ export class DatabaseManagementService implements OnInit {
    y_min: this.ws.ymin,
    description: wsTosave.description,
    date: wsTosave.date
+  });
+ }
+
+ layerBody(layer: any): object {
+  return new Object({
+   name: layer.geotabla,
+   color: layer.color,
+   opacity: layer.opacity,
+   id_workspace: this.ws.id
   });
  }
 
