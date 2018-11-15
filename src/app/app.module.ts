@@ -15,6 +15,7 @@ import { ChargeWorkspaceDialogComponent } from './charge-workspace-dialog/charge
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { StatisticComponent } from './statistic/statistic.component';
 import { PermitsComponent } from './permits/permits.component';
+import { SaveWorkspaceDialogComponent } from './save-workspace-dialog/save-workspace-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PermitsComponent } from './permits/permits.component';
     MapComponent,
     ChargeWorkspaceDialogComponent,
     StatisticComponent,
-    PermitsComponent
+    PermitsComponent,
+    SaveWorkspaceDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ import { PermitsComponent } from './permits/permits.component';
     LoginLocalDBComponent,
     ChargeWorkspaceDialogComponent,
     StatisticComponent,
-    PermitsComponent
+    PermitsComponent,
+    SaveWorkspaceDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

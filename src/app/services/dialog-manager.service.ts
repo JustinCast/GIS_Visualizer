@@ -5,6 +5,7 @@ import { LoginLocalDBComponent } from '../login-local-db/login-local-db.componen
 import { ChargeWorkspaceDialogComponent } from '../charge-workspace-dialog/charge-workspace-dialog.component';
 import { StatisticComponent } from '../statistic/statistic.component';
 import { PermitsComponent } from '../permits/permits.component';
+import { SaveWorkspaceDialogComponent } from '../save-workspace-dialog/save-workspace-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,7 @@ export class DialogManagerService {
       panelClass: 'dialog'
     })
   }
+
   openStatisticDialog(){
     const dialogRef = this.dialog.open(StatisticComponent, {
       width: '30',
@@ -54,6 +56,16 @@ export class DialogManagerService {
     const dialogRef = this.dialog.open(PermitsComponent, {
       width: '60%',
       height: '80%',
+      panelClass: 'dialog'
+    });
+
+    return dialogRef.afterClosed();
+  }
+
+  openSaveDialog() {
+    const dialogRef = this.dialog.open(SaveWorkspaceDialogComponent, {
+      width: '30%',
+      height: '35%',
       panelClass: 'dialog'
     });
 

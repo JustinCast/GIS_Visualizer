@@ -12,7 +12,9 @@ import {
   MatCheckboxModule,
   MatListModule,
   MatExpansionModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from "@angular/material";
 @NgModule({
   declarations: [],
@@ -29,7 +31,9 @@ import {
     MatCheckboxModule,
     MatListModule,
     MatExpansionModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatButtonModule,
@@ -43,7 +47,12 @@ import {
     MatCheckboxModule,
     MatListModule,
     MatExpansionModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  providers: [
+    MatNativeDateModule
   ]
 })
 export class MaterialModule {}
