@@ -35,8 +35,8 @@ async function saveWorkspace(req, res) {
   console.log(req.body);
   client
    .query(
-    `INSERT INTO workspace(name, height, width, x_max, x_min, y_max, y_min, description, save_date) 
-            VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+    `INSERT INTO workspace(name, height, width, x_max, x_min, y_max, y_min, description, save_date, layer) 
+            VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
     [
      req.body.name,
      req.body.height,
@@ -46,7 +46,8 @@ async function saveWorkspace(req, res) {
      req.body.y_max,
      req.body.y_min,
      req.body.description,
-     req.body.date
+     req.body.date,
+     req.body.layers
     ]
    )
    .then(() => {

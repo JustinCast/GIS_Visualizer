@@ -124,7 +124,6 @@ export class DatabaseManagementService implements OnInit {
     id => {
      this.ws.id = id;
      console.log(id);
-     this.saveLayer();
     },
     (err: HttpErrorResponse) => this.errorHandler(err)
    );
@@ -141,6 +140,9 @@ export class DatabaseManagementService implements OnInit {
  }
 
  wsBody(wsTosave: any): object {
+  let aux: any = this.ws.capas;
+  aux.geometria = [];
+  console.log(aux);
   return new Object({
    name: wsTosave.name,
    height: this.ws.height,
@@ -150,9 +152,18 @@ export class DatabaseManagementService implements OnInit {
    y_max: this.ws.ymax,
    y_min: this.ws.ymin,
    description: wsTosave.description,
-   date: wsTosave.date
+   date: wsTosave.date,
+   layers: JSON.stringify(this.cleanGeom(this.ws.capas))
   });
  }
+
+ cleanGeom(layers: Array<any>) {
+  let l = layers;
+  for (let index = 0; index < l.length; index++) {
+    l[index]["figuras"] = {}
+  }
+  return l;
+ }  
 
  layerBody(layer: any): object {
   return new Object({
