@@ -5,7 +5,6 @@ const queries = require('./queries')
 
 router.post('/initial', queries.initial);
 router.post('/saveWorkspace', queries.saveWorkspace);
-router.post('/saveLayer', queries.saveLayer);
 // router.get('', queries.getSchemas);
 
 module.exports = router;

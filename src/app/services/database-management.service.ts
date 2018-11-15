@@ -129,16 +129,6 @@ export class DatabaseManagementService implements OnInit {
    );
  }
 
- saveLayer() {
-  this.ws.capas.forEach(c => {
-    this._http.post<any>(`http://localhost:8080/api/v1/saveLayer`, this.layerBody(c))
-    .subscribe(
-      ok => console.log(ok),
-      (err: HttpErrorResponse) => this.errorHandler(err)
-    );
-  })
- }
-
  wsBody(wsTosave: any): object {
   let aux: any = this.ws.capas;
   aux.geometria = [];
@@ -164,15 +154,6 @@ export class DatabaseManagementService implements OnInit {
   }
   return l;
  }  
-
- layerBody(layer: any): object {
-  return new Object({
-   name: layer.geotabla,
-   color: layer.color,
-   opacity: layer.transparencia,
-   id_workspace: this.ws.id
-  });
- }
 
  limparGeometrias() {
   for (var i in this.ws.capas) this.ws.capas[i].figuras = "";

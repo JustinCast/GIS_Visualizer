@@ -29,8 +29,8 @@ async function loginLocal(req, res) {
 async function saveWorkspace(req, res) {
  try {
   client = new Client({
-    connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
-   });
+   connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+  });
   await client.connect();
   console.log(req.body);
   client
@@ -56,25 +56,6 @@ async function saveWorkspace(req, res) {
    .catch(e => console.error(e.stack));
  } catch (error) {
   console.log(`Save workspace error: ${error}`);
- }
-}
-
-async function saveLayer(req, res) {
- try {
-  client = new Client({
-    connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
-   });
-  await client.connect();
-  console.log(req.body);
-  client
-   .query(
-    `INSERT INTO layer(name, color, opacity, id_workspace) VALUES($1, $2, $3, $4)`,
-    [req.body.name, req.body.color, req.body.opacity, req.body.id_workspace]
-   )
-   .then(() => res.status(201))
-   .catch(e => console.error(e.stack));
- } catch (error) {
-  console.log(`Save layer error: ${error}`);
  }
 }
 
@@ -141,6 +122,5 @@ module.exports = {
  loginLocal: loginLocal,
  loginDBLink: loginDBLink,
  initial: initial,
- saveWorkspace: saveWorkspace,
- saveLayer: saveLayer
+ saveWorkspace: saveWorkspace
 };
