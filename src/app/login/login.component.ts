@@ -3,6 +3,7 @@ import {coerceNumberProperty} from '@angular/cdk/coercion';
 import { DatabaseManagementService } from '../services/database-management.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Layer } from '../models/layer';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   autoTicks = true;
   thumbLabel = true;
   value = 0;
-  constructor(private db: DatabaseManagementService, private _fb: FormBuilder) { 
+  constructor(private db: DatabaseManagementService, private _fb: FormBuilder, private _session: SessionService) { 
     this.layerGroup = this._fb.group({
       'host': ['p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com', Validators.required],
       'port': [5432, Validators.required],
@@ -58,8 +59,13 @@ export class LoginComponent implements OnInit {
     layer.transparencia = this.value/10;
     layer.figuras= new Object();
     this.db.loading = true;
-    console.log(this.layerGroup.value);
-    this.db.updateShapes(layer);
+    console.log(layer);
+    this.db.ngOnInit();
+    if(this._session.getActualSession() !== null){
+      this.db.updateShapes(layer, 'update');
+    }else {
+      this.db.updateShapes(layer, 'update');
+    }
   }
 
 }

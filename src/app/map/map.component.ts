@@ -13,17 +13,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.db.ngOnInit();
-    if(this._session.getActualSession() === null){
-      let layer = new Layer();
-  
-      layer.color = "red";
-      layer.transparencia = 0.6;
-      layer.figuras = new Object();
-      layer.schema = "public";
-      layer.geotabla = "fincastec";
-    }else {
+    console.log(this._session.getActualSession());
+    if(this._session.getActualSession() !== null){
       this.db.loading = true;
-      this.db.updateShapes(this._session.getActualSession());
+      this.db.updateShapes(this._session.getActualSession(), 'update');
     }
   }
   ngAfterViewInit() {
