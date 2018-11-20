@@ -101,17 +101,18 @@ export class DatabaseManagementService implements OnInit {
   }
  }
 
- updateShapes(layer: Layer) {
+ updateShapes(layer: Layer, endpoint: string) {
   layer.actualizarFiguras = function() {
    this.updateShapes(this);
   };
   this.ws.capas.push(layer);
 
-  this._http.post<any>(`http://localhost:8080/api/v1/initial`, layer).subscribe(
+  this._http.post<any>(`http://localhost:8080/api/v1/${endpoint}`, layer).subscribe(
    success => {
     this._session.actualSession(layer);
     this.loading = false;
     layer.figuras.geometria = success;
+    console.log(success);
     for (var i in layer.figuras.geometria) {
      layer.figuras.geometria[i].geom = layer.figuras.geometria[i].geom;
     }
