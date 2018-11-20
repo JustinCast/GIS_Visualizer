@@ -1,4 +1,4 @@
-<form class="container">
+<form class="container" [formGroup]="localGroup" (ngSubmit)="onSubmit()">
   <div class="container text-center">
     <mat-radio-group>
       <mat-radio-button class="m-2" value="1">Login</mat-radio-button>
@@ -6,13 +6,13 @@
     </mat-radio-group>
   </div>
   <mat-form-field>
-    <input color="secondary" matInput type="text" placeholder="Username">
+    <input color="secondary" [formControl]="localGroup.get('username')" matInput type="text" placeholder="Username">
   </mat-form-field> 
   <mat-form-field>
-    <input color="secondary" matInput type="password" placeholder="Passoword">
+    <input color="secondary" [formControl]="localGroup.get('password')" matInput type="password" placeholder="Password">
   </mat-form-field> 
   <hr>
   <div class="container text-center">
-    <button mat-stroked-button><mat-icon>done</mat-icon></button>
+    <button type="submit" mat-raised-button color="accent"><mat-icon>power_settings_new</mat-icon></button>
   </div>
 </form>

@@ -62,9 +62,8 @@ async function saveWorkspace(req, res) {
 async function initial(req, res) {
  try {
   client = new Client({
-   connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+   connectionString: `postgresql://${req.body.user}:${req.body.password}@${req.body.host}/${req.body.db}`
   });
-  //await client.connect();
   var colums_desc;
   var colums_geom;
   var query;

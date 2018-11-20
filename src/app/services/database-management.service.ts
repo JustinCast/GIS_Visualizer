@@ -1,7 +1,8 @@
 import { Injectable, OnInit } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Layer } from "../models/conn";
+import { Layer } from "../models/layer";
 import { WorkSpace } from "../models/workspace";
+import { SessionService } from "./session.service";
 
 @Injectable({
  providedIn: "root"
@@ -12,7 +13,8 @@ export class DatabaseManagementService implements OnInit {
  heightSVG = 0;
  loading: boolean = false;
  saving: boolean = false;
- constructor(private _http: HttpClient) {}
+ loginFirst: boolean = false;
+ constructor(private _http: HttpClient, private _session: SessionService) {}
 
  ngOnInit() {
   this.ws.xmin = 0.0;
@@ -107,6 +109,7 @@ export class DatabaseManagementService implements OnInit {
 
   this._http.post<any>(`http://localhost:8080/api/v1/initial`, layer).subscribe(
    success => {
+    this._session.actualSession(layer);
     this.loading = false;
     layer.figuras.geometria = success;
     for (var i in layer.figuras.geometria) {
@@ -130,6 +133,8 @@ export class DatabaseManagementService implements OnInit {
     (err: HttpErrorResponse) => this.errorHandler(err)
    );
  }
+
+ loadLastWs(){}
 
  wsBody(wsTosave: any): object {
   let aux: any = this.ws.capas;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {coerceNumberProperty} from '@angular/cdk/coercion';
 import { DatabaseManagementService } from '../services/database-management.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Layer } from '../models/conn';
+import { Layer } from '../models/layer';
 
 @Component({
   selector: 'app-login',

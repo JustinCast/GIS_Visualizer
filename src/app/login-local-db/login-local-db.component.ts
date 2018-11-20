@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login-local-db',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-local-db.component.scss']
 })
 export class LoginLocalDBComponent implements OnInit {
-
-  constructor() { }
+  localGroup: FormGroup;
+  constructor(private _fb: FormBuilder) { 
+    this.localGroup = this._fb.group({
+      'username': ['', Validators.required],
+      'password': ['', Validators.required]
+    });
+  }
 
   ngOnInit() {
   }
 
+  onSubmit() {
+    
+  }
 }
