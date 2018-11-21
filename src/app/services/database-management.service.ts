@@ -143,6 +143,7 @@ export class DatabaseManagementService implements OnInit {
   console.log(aux);
   return new Object({
    name: wsTosave.name,
+   logged_user: this._session.getActualSession().user,
    height: this.ws.height,
    width: this.ws.width,
    x_max: this.ws.xmax,

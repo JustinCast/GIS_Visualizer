@@ -35,10 +35,11 @@ async function saveWorkspace(req, res) {
   console.log(req.body);
   client
    .query(
-    `INSERT INTO workspace(name, height, width, x_max, x_min, y_max, y_min, description, save_date, layer) 
-            VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+    `INSERT INTO workspace(name, logged_user, height, width, x_max, x_min, y_max, y_min, description, save_date, layer) 
+            VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
     [
      req.body.name,
+     req.body.logged_user,
      req.body.height,
      req.body.width,
      req.body.x_max,
