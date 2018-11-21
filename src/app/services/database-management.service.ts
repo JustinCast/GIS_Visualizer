@@ -72,7 +72,6 @@ export class DatabaseManagementService implements OnInit {
   this.actualizar_limites();
 
   var misvg = document.getElementById("misvg");
-  console.log(this.ws);
   for (var i in this.ws.capas) {
    for (var j in this.ws.capas[i].figuras.geometria) {
     var n_poly = document.createElementNS(
@@ -105,29 +104,34 @@ export class DatabaseManagementService implements OnInit {
   layer.actualizarFiguras = function() {
    this.updateShapes(this);
   };
-  this.ws.capas.push(layer);
 
-  this._http.post<any>(`http://localhost:8080/api/v1/${endpoint}`, layer).subscribe(
-   success => {
-    this._session.actualSession(layer);
-    this.loading = false;
-    layer.figuras.geometria = success;
-    console.log(success);
-    for (var i in layer.figuras.geometria) {
-     layer.figuras.geometria[i].geom = layer.figuras.geometria[i].geom;
-    }
-    this.dibujarPoligonos();
-   },
-   (err: HttpErrorResponse) => this.errorHandler(err)
-  );
+  this._http
+   .post<any>(`http://localhost:8080/api/v1/${endpoint}`, layer)
+   .subscribe(
+    success => {
+     this._session.actualSession(layer);
+     this.loading = false;
+     layer.figuras.geometria = success;
+     this.ws.capas.push(layer);
+     console.log(this.ws);
+     for (var i in layer.figuras.geometria) {
+      layer.figuras.geometria[i].geom = layer.figuras.geometria[i].geom;
+     }
+     this.dibujarPoligonos();
+    },
+    (err: HttpErrorResponse) => this.errorHandler(err)
+   );
  }
 
  saveWs(wsToSave: any) {
   this._http
-   .post<any>(`http://localhost:8080/api/v1/saveWorkspace`, this.wsBody(wsToSave))
+   .post<any>(
+    `http://localhost:8080/api/v1/saveWorkspace`,
+    this.wsBody(wsToSave)
+   )
    .subscribe(
     id => {
-      this.saving = false;
+     this.saving = false;
      this.ws.id = id;
      console.log(id);
     },
@@ -135,7 +139,7 @@ export class DatabaseManagementService implements OnInit {
    );
  }
 
- loadLastWs(){}
+ loadLastWs() {}
 
  wsBody(wsTosave: any): object {
   let aux: any = this.ws.capas;
@@ -159,10 +163,10 @@ export class DatabaseManagementService implements OnInit {
  cleanGeom(layers: Array<any>) {
   let l = layers;
   for (let index = 0; index < l.length; index++) {
-    l[index]["figuras"] = {}
+   l[index]["figuras"] = {};
   }
   return l;
- }  
+ }
 
  limparGeometrias() {
   for (var i in this.ws.capas) this.ws.capas[i].figuras = "";

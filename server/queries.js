@@ -99,30 +99,7 @@ async function initial(req, res) {
       "SELECT layer FROM workspace WHERE logged_user = $1 ORDER BY id DESC LIMIT 1;", [req.body.user]
      )
      .then(layer => {
-      console.log(layer.rows);
-      /*client.query(query1).then(data => {
-       this.colums_desc = data.rows;
-      });
-      client.query(query2).then(data2 => {
-       this.colums_geom = data2.rows;
-       query =
-        `select ` +
-        this.colums_desc[0].string_agg +
-        `,st_xmin(geom) xmin,st_xmax(geom) xmax,st_ymin(geom) ymin,st_ymax(geom) ymax,` +
-        this.colums_geom[0].string_agg +
-        ` from ` +
-        req.body.schema +
-        `.` +
-        req.body.geotabla;
-
-       client
-        .query(query)
-        .then(data3 => {
-         res.status(200).json(data3.rows);
-         client.end();
-        })
-        .catch(e => console.error(e.stack));
-      });*/
+      console.log(layer.rows[0]);
      });
    }
   });

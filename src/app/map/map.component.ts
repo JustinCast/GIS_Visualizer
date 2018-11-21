@@ -13,7 +13,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.db.ngOnInit();
-    console.log(this._session.getActualSession());
     if(this._session.getActualSession() !== null){
       this.db.loading = true;
       this.db.updateShapes(this._session.getActualSession(), 'update');

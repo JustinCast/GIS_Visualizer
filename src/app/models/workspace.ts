@@ -1,4 +1,5 @@
 export class WorkSpace {
+    public capas: Array<any> = [];
     constructor(
         public id?: number,
         public xmin?: number,
@@ -7,7 +8,6 @@ export class WorkSpace {
         public ymax?: number,
         public width?: number,
         public height?: number,
-        public factorP?: number,
-        public capas?: Array<any>
+        public factorP?: number
     ){}
 }

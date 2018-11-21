@@ -15,4 +15,8 @@ export class SessionService {
   getActualSession(): Layer {
     return JSON.parse(localStorage.getItem('layer'));
   }
+
+  logout() {
+    localStorage.removeItem('layer');
+  }
 }
