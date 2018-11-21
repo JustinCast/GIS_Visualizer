@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { DialogManagerService } from './services/dialog-manager.service';
+import { UIService } from './services/ui.service';
+import { SessionService } from './services/session.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,7 @@ import { DialogManagerService } from './services/dialog-manager.service';
 })
 export class AppComponent {
 
-  constructor(private dialogManager: DialogManagerService){}
+  constructor(private dialogManager: DialogManagerService, private ui: UIService, private _session: SessionService){}
 
   openConnectionDialog() {
     this.dialogManager.openConnectionDialog();
@@ -24,6 +26,14 @@ export class AppComponent {
 
   openPermitsDialog() {
     this.dialogManager.openPermitsDialog();
+  }
+
+  openSaveDialog() {
+    console.log(this._session.getActualSession());
+    if(this._session.getActualSession() !== null)
+      this.dialogManager.openSaveDialog();
+    else
+      this.ui.openSnackBar('You´re not logged', 'Ok', 2000);
   }
 
 }
