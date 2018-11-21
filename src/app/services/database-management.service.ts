@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Layer } from "../models/layer";
 import { WorkSpace } from "../models/workspace";
 import { SessionService } from "./session.service";
+import { UIService } from "./ui.service";
 
 @Injectable({
  providedIn: "root"
@@ -14,7 +15,11 @@ export class DatabaseManagementService implements OnInit {
  loading: boolean = false;
  saving: boolean = false;
  loginFirst: boolean = false;
- constructor(private _http: HttpClient, private _session: SessionService) {}
+ constructor(
+  private _http: HttpClient,
+  private _session: SessionService,
+  private _ui: UIService
+ ) {}
 
  ngOnInit() {
   this.ws.xmin = 0.0;
@@ -100,27 +105,25 @@ export class DatabaseManagementService implements OnInit {
   }
  }
 
- updateShapes(layer: Layer, endpoint: string) {
+ updateShapes(layer: Layer) {
   layer.actualizarFiguras = function() {
    this.updateShapes(this);
   };
 
-  this._http
-   .post<any>(`http://localhost:8080/api/v1/${endpoint}`, layer)
-   .subscribe(
-    success => {
-     this._session.actualSession(layer);
-     this.loading = false;
-     layer.figuras.geometria = success;
-     this.ws.capas.push(layer);
-     console.log(this.ws);
-     for (var i in layer.figuras.geometria) {
-      layer.figuras.geometria[i].geom = layer.figuras.geometria[i].geom;
-     }
-     this.dibujarPoligonos();
-    },
-    (err: HttpErrorResponse) => this.errorHandler(err)
-   );
+  this._http.post<any>(`http://localhost:8080/api/v1/update`, layer).subscribe(
+   success => {
+    this._session.actualSession(layer);
+    this.loading = false;
+    layer.figuras.geometria = success;
+    this.ws.capas.push(layer);
+    console.log(this.ws);
+    for (var i in layer.figuras.geometria) {
+     layer.figuras.geometria[i].geom = layer.figuras.geometria[i].geom;
+    }
+    this.dibujarPoligonos();
+   },
+   (err: HttpErrorResponse) => this.errorHandler(err)
+  );
  }
 
  saveWs(wsToSave: any) {
@@ -139,7 +142,26 @@ export class DatabaseManagementService implements OnInit {
    );
  }
 
- loadLastWs() {}
+ getWsCount(layer: Layer) {
+  this._http.get<any>(`http://localhost:8080/api/v1/getWsCount/${layer.user}`).subscribe(
+   count => {
+    if (count) this.loadLastWs();
+    //relse this.updateShapes(layer);
+   },
+   (err: HttpErrorResponse) => this.errorHandler(err)
+  );
+ }
+ loadLastWs() {
+  this._http.get<any[]>(`http://localhost:8080/api/v1/initial`).subscribe(
+   count => {
+    console.log(count);
+    count.forEach(w => {
+     this.updateShapes(w as Layer);
+    });
+   },
+   (err: HttpErrorResponse) => this.errorHandler(err)
+  );
+ }
 
  wsBody(wsTosave: any): object {
   let aux: any = this.ws.capas;
@@ -186,14 +208,16 @@ export class DatabaseManagementService implements OnInit {
   this.saving = false;
   if (err.error instanceof Error) {
    // Error del lado del cliente
-   console.log("An error occurred:", err.error.message);
+   this._ui.openSnackBar(`An error occurred: ${err.error.message}`, "Ok", 4000);
   } else {
    // The backend returned an unsuccessful response code.
    // Error del lado del backend
-   console.log(
+   this._ui.openSnackBar(
     `Backend returned code ${err.status}, body was: ${JSON.stringify(
      err.error
-    )}`
+    )}`,
+    "Ok",
+    4000
    );
   }
  }

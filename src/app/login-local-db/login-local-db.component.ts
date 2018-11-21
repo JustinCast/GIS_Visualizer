@@ -26,6 +26,6 @@ export class LoginLocalDBComponent implements OnInit {
   layer.dbname = "p3bd2";
   layer.user = "usr_p3bd2";
   layer.password = "usr_p3bd2";
-  this._db.updateShapes(layer, 'initial');
+  this._db.updateShapes(layer);
  }
 }

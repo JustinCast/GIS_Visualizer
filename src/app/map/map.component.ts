@@ -15,7 +15,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.db.ngOnInit();
     if(this._session.getActualSession() !== null){
       this.db.loading = true;
-      this.db.updateShapes(this._session.getActualSession(), 'update');
+      this.db.getWsCount(this._session.getActualSession());
     }
   }
   ngAfterViewInit() {

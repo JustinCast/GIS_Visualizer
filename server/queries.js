@@ -60,17 +60,30 @@ async function saveWorkspace(req, res) {
  }
 }
 
+async function getWsCount(req, res) {
+ try {
+  client = new Client({
+   connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+  });
+
+  await client.connect();
+  client
+   .query("SELECT COUNT(*) FROM workspace WHERE logged_user = $1;", [
+    req.params.user
+   ])
+   .then(c => {
+    console.log(c.rows[0].count);
+    if (c.rows[0].count > 0) res.status(200).send(c.rows[0]);
+    else res.status(200).send(false);
+   });
+ } catch (error) {}
+}
+
 async function initial(req, res) {
  try {
   client = new Client({
-   connectionString: `postgresql://${req.body.user}:${req.body.password}@${
-    req.body.host
-   }/${req.body.dbname}`
+   connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
   });
-  var colums_desc;
-  var colums_geom;
-  var query;
-  console.log(req.body);
 
   await client.connect(err => {
    if (err) {
@@ -78,28 +91,15 @@ async function initial(req, res) {
     console.log(err.message);
     res.status(400).json(err.message);
    } else {
-    const query1 =
-     `select string_agg(column_name,',') from information_schema.columns 
-            where table_schema='` +
-     req.body.schema +
-     `' and table_name='` +
-     req.body.geotabla +
-     `' and not(udt_name='geometry')`;
-    const query2 =
-     `select string_agg('st_asgeojson('||column_name||')::json as geom',',') from information_schema.columns 
-            where table_schema='` +
-     req.body.schema +
-     `' and table_name='` +
-     req.body.geotabla +
-     `' and udt_name='geometry'`;
-
     // obteniendo el último workspace si lo hay
     client
      .query(
-      "SELECT layer FROM workspace WHERE logged_user = $1 ORDER BY id DESC LIMIT 1;", [req.body.user]
+      "SELECT layer FROM workspace WHERE logged_user = $1 ORDER BY id DESC LIMIT 1;",
+      ["usr_p3bd2"]
      )
      .then(layer => {
       console.log(layer.rows[0]);
+      res.status(200).send(layer.rows[0].layer);
      });
    }
   });
@@ -159,7 +159,6 @@ async function update(req, res) {
       .query(query)
       .then(data3 => {
        res.status(200).json(data3.rows);
-       client.end();
       })
       .catch(e => console.error(e.stack));
     });
@@ -175,5 +174,6 @@ module.exports = {
  loginDBLink: loginDBLink,
  initial: initial,
  update: update,
- saveWorkspace: saveWorkspace
+ saveWorkspace: saveWorkspace,
+ getWsCount: getWsCount
 };
