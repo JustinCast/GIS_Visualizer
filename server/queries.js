@@ -167,11 +167,54 @@ async function update(req, res) {
  }
 }
 
+async function searchByName(req, res){
+  try {
+    client = new Client({
+      connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+     });
+     await client.connect();
+     client.query("SELECT * FROM workspace WHERE name = $1", [req.params.name])
+     .then(result => {res.status(200).send(result.rows[0]); console.log(result)})
+     .catch(err => console.log(err));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function searchByDate(req, res){
+  try {
+    client = new Client({
+      connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+     });
+     await client.connect();
+     client.query("SELECT * FROM workspace WHERE save_date = $1", [req.params.date])
+     .then(result => res.status(200).send(result.rows[0]));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function searchByDescription(req, res){
+  try {
+    client = new Client({
+      connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+     });
+     await client.connect();
+     client.query("SELECT * FROM workspace WHERE description = $1", [req.params.description])
+     .then(result => res.status(200).send(result.rows[0]));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
  loginLocal: loginLocal,
  loginDBLink: loginDBLink,
  initial: initial,
  update: update,
  saveWorkspace: saveWorkspace,
- getWsCount: getWsCount
+ getWsCount: getWsCount,
+ searchByName: searchByName,
+ searchByDate: searchByDate,
+ searchByDescription: searchByDescription
 };

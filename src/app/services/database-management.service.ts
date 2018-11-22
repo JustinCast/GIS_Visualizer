@@ -116,7 +116,6 @@ export class DatabaseManagementService implements OnInit {
     this.loading = false;
     layer.figuras.geometria = success;
     this.ws.capas.push(layer);
-    console.log(this.ws);
     for (var i in layer.figuras.geometria) {
      layer.figuras.geometria[i].geom = layer.figuras.geometria[i].geom;
     }
@@ -136,7 +135,6 @@ export class DatabaseManagementService implements OnInit {
     id => {
      this.saving = false;
      this.ws.id = id;
-     console.log(id);
     },
     (err: HttpErrorResponse) => this.errorHandler(err)
    );
@@ -154,7 +152,6 @@ export class DatabaseManagementService implements OnInit {
  loadLastWs() {
   this._http.get<any[]>(`http://localhost:8080/api/v1/initial`).subscribe(
    count => {
-    console.log(count);
     count.forEach(w => {
      this.updateShapes(w as Layer);
     });
@@ -166,7 +163,6 @@ export class DatabaseManagementService implements OnInit {
  wsBody(wsTosave: any): object {
   let aux: any = this.ws.capas;
   aux.geometria = [];
-  console.log(aux);
   return new Object({
    name: wsTosave.name,
    logged_user: this._session.getActualSession().user,

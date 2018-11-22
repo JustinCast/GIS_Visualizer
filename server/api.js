@@ -9,4 +9,9 @@ router.post('/saveWorkspace', queries.saveWorkspace);
 router.get('/getWsCount/:user', queries.getWsCount);
 // router.get('', queries.getSchemas);
 
+
+// search
+router.get('/searchByName/:name', queries.searchByName);
+router.get('/searchByDate/:date', queries.searchByDate);
+router.get('/searchByDescription/:description', queries.searchByDescription);
 module.exports = router;

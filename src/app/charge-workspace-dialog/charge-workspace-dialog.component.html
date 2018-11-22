@@ -8,9 +8,11 @@
 </div>
 <hr />
 <mat-form-field class="container">
- <input type="tel" matInput placeholder="Search" />
- <mat-icon matSuffix (click)="search()">search</mat-icon>
+ <input [(ngModel)]="content" type="tel" matInput placeholder="Search" />
 </mat-form-field>
+<div class="container text-center">
+ <button mat-raised-button color="warn" (click)="search()">Search</button>
+</div>
 
 <div class="container mt-10">
  <p class="text-secondary text-center"><i>Results will apear here...</i></p>
