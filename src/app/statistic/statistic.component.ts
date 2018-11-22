@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { adminManagerService } from '../services/admin-manager.service';
 
 @Component({
   selector: 'app-statistic',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatisticComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private _admin_manager: adminManagerService) { }
+  tableN:String;
   ngOnInit() {
+    this._admin_manager.getAllTables();
+    this._admin_manager.getUserTableSize("islas");
+  //  this.loadTableSize();
+  }
+
+  getTableSize(tableName:string){
+    this.tableN="  "+tableName;
+    console.log(tableName);
+    this._admin_manager.getTableSize(tableName);
   }
 
 }

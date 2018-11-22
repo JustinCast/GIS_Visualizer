@@ -1,28 +1,22 @@
 <h2>Grant permissions to users for select </h2>
 <form class="text-center">
   <mat-form-field>
-    <mat-select placeholder="User" >
-      <mat-option *ngFor="let user of users" [value]="user">
-        {{user}}
+    <mat-select [(ngModel)]="selectedUser" name="selectedUser" placeholder="User" >
+      <mat-option *ngFor="let user of _admin_manager.users" [value]="user">
+        {{user.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>  
+  <hr>  
+  <h1>Grant permissions</h1>
+  <mat-form-field>
+    <mat-select [(ngModel)]="selectedTable" name="selectedTable" placeholder="Tables" >
+      <mat-option *ngFor="let table of _admin_manager.tables" [value]="table">
+        {{table.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>  
+  <button mat-button (click)="grantPermission(selectedTable.name,selectedUser.name)">Grant</button>
+  <hr>
 
-  <mat-expansion-panel  *ngFor="let permits of dataSource">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{permits.tableName}}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-
-      <mat-selection-list>
-          <mat-list-option selected="{{column.select}}" *ngFor="let column of permits.columns">
-            {{column.columName}}
-          </mat-list-option>
-        </mat-selection-list>
-    </mat-expansion-panel>
 </form>
-<div class="container text-center" style="padding-top: 2%">
-    <button mat-button>Save changes</button>
-</div>
-

@@ -1,8 +1,6 @@
-import { Column } from "./column";
-
-export class Permission{
+export class Permission {
     constructor(
-        public tableName?:String,
-        public columns?: Column[],
-    ){}
-}
+      public table?: string,
+      public name?: string,
+    ) {}
+  }

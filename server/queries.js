@@ -2,6 +2,7 @@ const { Client } = require("pg");
 var client;
 let connstring;
 let dblinkString;
+
 async function loginDBLink(req, res) {
  try {
   client = new Client({ connectionString: String(req.body.conn) });
@@ -166,44 +167,124 @@ async function update(req, res) {
  }
 }
 
-async function searchByName(req, res){
-  try {
-    client = new Client({
-      connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
-     });
-     await client.connect();
-     client.query("SELECT * FROM workspace WHERE name = $1", [req.params.name])
-     .then(result => {res.status(200).send(result.rows[0]); })
-     .catch(err => console.log(err));
-  } catch (error) {
-    console.log(error);
-  }
+async function searchByName(req, res) {
+ try {
+  client = new Client({
+   connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+  });
+  await client.connect();
+  client
+   .query("SELECT * FROM workspace WHERE name = $1", [req.params.name])
+   .then(result => {
+    res.status(200).send(result.rows[0]);
+   })
+   .catch(err => console.log(err));
+ } catch (error) {
+  console.log(error);
+ }
 }
 
-async function searchByDate(req, res){
-  try {
-    client = new Client({
-      connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
-     });
-     await client.connect();
-     client.query("SELECT * FROM workspace WHERE save_date = $1", [req.params.date])
-     .then(result => res.status(200).send(result.rows[0]));
-  } catch (error) {
-    console.log(error);
-  }
+async function searchByDate(req, res) {
+ try {
+  client = new Client({
+   connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+  });
+  await client.connect();
+  client
+   .query("SELECT * FROM workspace WHERE save_date = $1", [req.params.date])
+   .then(result => res.status(200).send(result.rows[0]));
+ } catch (error) {
+  console.log(error);
+ }
 }
 
-async function searchByDescription(req, res){
-  try {
-    client = new Client({
-      connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
-     });
-     await client.connect();
-     client.query("SELECT * FROM workspace WHERE description = $1", [req.params.description])
-     .then(result => res.status(200).send(result.rows[0]));
-  } catch (error) {
-    console.log(error);
-  }
+async function save(req, res) {}
+
+async function initial(req, res) {
+ try {
+  client = new Client({
+   connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+  });
+  await client.connect();
+  client
+   .query("SELECT * FROM workspace WHERE description = $1", [
+    req.params.description
+   ])
+   .then(result => res.status(200).send(result.rows[0]));
+ } catch (error) {
+  console.log(error);
+ }
+}
+
+async function getTables(req, res) {
+ try {
+  client = new Client({
+   connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+  });
+  await client.connect();
+  let result = await client.query(
+   "SELECT table_name as name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';"
+  );
+  console.log(result.rows);
+  res.status(200).send(result.rows);
+ } catch (error) {
+  console.log(error);
+ }
+}
+
+async function getUsers(req, res) {
+ try {
+  client = new Client({
+   connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+  });
+  await client.connect();
+  let result = await client.query(
+   "select DISTINCT grantee as name from information_schema.table_privileges where privilege_type='SELECT' and table_schema='public';"
+  );
+  console.log(result.rows);
+  res.status(200).send(result.rows);
+ } catch (error) {
+  console.log(error);
+ }
+}
+
+async function getTableSize(req, res) {
+ try {
+  client = new Client({
+   connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+  });
+  await client.connect();
+  let query = {
+   text: "select pg_size_pretty(pg_total_relation_size($1)) AS size;",
+   values: [req.params.tableName]
+  };
+
+  let result = await client.query(query);
+  console.log(result.rows[0]);
+  res.status(200).send(result.rows[0]);
+ } catch (error) {
+  console.log(error);
+ }
+}
+
+async function postPermissionsTables(req, res) {
+ try {
+  client = new Client({
+   connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+  });
+  await client.connect();
+  let query =
+   `GRANT SELECT ON TABLE public.` +
+   req.params.tableName +
+   ` TO ` +
+   req.body.user +
+   `;)`;
+  console.log(query);
+
+  await client.query(query);
+ } catch (error) {
+  console.log(error);
+ }
 }
 
 module.exports = {
@@ -215,5 +296,9 @@ module.exports = {
  getWsCount: getWsCount,
  searchByName: searchByName,
  searchByDate: searchByDate,
- searchByDescription: searchByDescription
+ searchByDescription: searchByDescription,
+ getTables: getTables,
+ getTableSize: getTableSize,
+ getUsers: getUsers,
+ postPermissionsTables: postPermissionsTables
 };
