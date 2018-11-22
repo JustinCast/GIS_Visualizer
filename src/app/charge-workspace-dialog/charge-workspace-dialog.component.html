@@ -1,4 +1,17 @@
+<h3 class="text-secondary text-center">Search by:</h3>
+<div class="container text-center">
+ <mat-radio-group [(ngModel)]="value">
+  <mat-radio-button value="1">By date</mat-radio-button>
+  <mat-radio-button value="2">By name</mat-radio-button>
+  <mat-radio-button value="3">By description</mat-radio-button>
+ </mat-radio-group>
+</div>
+<hr />
 <mat-form-field class="container">
- <input type="tel" matInput placeholder="Telephone" />
- <mat-icon matSuffix>mode_edit</mat-icon>
+ <input type="tel" matInput placeholder="Search" />
+ <mat-icon matSuffix (click)="search()">search</mat-icon>
 </mat-form-field>
+
+<div class="container mt-10">
+ <p class="text-secondary text-center"><i>Results will apear here...</i></p>
+</div>

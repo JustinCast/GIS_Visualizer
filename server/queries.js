@@ -115,8 +115,6 @@ async function update(req, res) {
     req.body.host
    }/${req.body.dbname}`
   });
-  var colums_desc;
-  var colums_geom;
   var query;
   console.log(req.body);
   await client.connect(err => {
