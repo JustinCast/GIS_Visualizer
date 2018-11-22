@@ -93,12 +93,12 @@ async function initial(req, res) {
     // obteniendo el último workspace si lo hay
     client
      .query(
-      "SELECT layer FROM workspace WHERE logged_user = $1 ORDER BY id DESC LIMIT 1;",
+      "SELECT capas FROM workspace WHERE logged_user = $1 ORDER BY id DESC LIMIT 1;",
       ["usr_p3bd2"]
      )
      .then(layer => {
-      console.log(layer.rows[0].layer);
-      res.status(200).send(layer.rows[0].layer);
+      console.log(layer.rows[0].capas);
+      res.status(200).send(layer.rows[0].capas);
      });
    }
   });

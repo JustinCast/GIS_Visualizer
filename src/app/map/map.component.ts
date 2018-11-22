@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { DatabaseManagementService } from "../services/database-management.service";
-import { Layer } from "../models/layer";
+import * as SvgPanZoom from 'svg-pan-zoom';
 import { SessionService } from "../services/session.service";
 
 @Component({
@@ -8,7 +8,7 @@ import { SessionService } from "../services/session.service";
   templateUrl: "./map.component.html",
   styleUrls: ["./map.component.scss"]
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit {
   constructor(private db: DatabaseManagementService, private _session: SessionService) {}
 
   ngOnInit() {
@@ -18,6 +18,8 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.db.getWsCount(this._session.getActualSession());
     }
   }
-  ngAfterViewInit() {
+  zoom() {
+    // initializing the function
+    let svgPanZoom: SvgPanZoom.Instance = SvgPanZoom('#misvg')
   }
 }
