@@ -12,7 +12,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ChargeWorkspaceDialogComponent } from './charge-workspace-dialog/charge-workspace-dialog.component';
-import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { StatisticComponent } from './statistic/statistic.component';
 import { PermitsComponent } from './permits/permits.component';
 
@@ -34,8 +33,7 @@ import { PermitsComponent } from './permits/permits.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ColorPickerModule,
-    NgxImageZoomModule.forRoot()
+    ColorPickerModule
   ],
   entryComponents: [
     LoginComponent,

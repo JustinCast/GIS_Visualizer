@@ -42,7 +42,7 @@ export class DialogManagerService {
   }
   openStatisticDialog(){
     const dialogRef = this.dialog.open(StatisticComponent, {
-      width: '30',
+      width: '60%',
       height: '80%',
       panelClass: 'dialog'
     });

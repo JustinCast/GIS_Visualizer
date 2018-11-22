@@ -2,12 +2,14 @@ const { Client } = require("pg");
 var client;
 let connstring;
 let dblinkString;
+
 async function loginDBLink(req, res) {
   try {
-    client = new Client({ connectionString: String(req.body.conn) });
+    client = new Client({connectionString: String(req.body.conn)});
     dblinkString = String(req.body.conn);
     await client.connect();
     res.status(200).json({ logged: true });
+    client.end();
   } catch (error) {
     console.log(error);
   }
@@ -56,7 +58,9 @@ async function st_asgeojson(req, res) {
   }
 }
 
-async function save(req, res) {}
+async function save(req, res) {
+
+}
 
 async function initial(req, res) {
   try {
@@ -118,10 +122,76 @@ async function initial(req, res) {
   }
 }
 
+async function getTables(req, res){
+  try {
+    client = new Client({
+      connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+    });
+    await client.connect();
+    let result = await client.query("SELECT table_name as name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';");
+    console.log(result.rows)
+    res.status(200).send(result.rows);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getUsers(req, res){
+  try {
+    client = new Client({
+      connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+    });
+    await client.connect();
+    let result = await client.query("select DISTINCT grantee as name from information_schema.table_privileges where privilege_type='SELECT' and table_schema='public';");
+    console.log(result.rows)
+    res.status(200).send(result.rows);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getTableSize(req, res){
+  try {
+    client = new Client({
+      connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+    });
+    await client.connect();
+    let query = { 
+			text: "select pg_size_pretty(pg_total_relation_size($1)) AS size;",
+			values: [req.params.tableName]
+    };
+
+    let result = await client.query(query);
+    console.log(result.rows[0]);
+    res.status(200).send(result.rows[0]);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function postPermissionsTables(req, res){
+  try {
+    client = new Client({
+      connectionString: `postgresql://usr_p3bd2:usr_p3bd2@p3bd2.cwvcjn59heq2.us-east-2.rds.amazonaws.com/p3bd2`
+    });
+    await client.connect();
+    let query = `GRANT SELECT ON TABLE public.`+req.params.tableName+` TO `+req.body.user+`;)`;
+    console.log(query);
+    
+    await client.query(query);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
   column_concat: column_concat,
   loginLocal: loginLocal,
   loginDBLink: loginDBLink,
   st_asgeojson: st_asgeojson,
-  initial: initial
+  initial: initial,
+  getTables: getTables,
+  getTableSize: getTableSize,
+  getUsers: getUsers,
+  postPermissionsTables: postPermissionsTables
 };
