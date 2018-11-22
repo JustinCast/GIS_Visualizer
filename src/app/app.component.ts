@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { DialogManagerService } from "./services/dialog-manager.service";
 import { UIService } from "./services/ui.service";
 import { SessionService } from "./services/session.service";
+import { DatabaseManagementService } from "./services/database-management.service";
 
 @Component({
  selector: "app-root",
@@ -12,7 +13,8 @@ export class AppComponent {
  constructor(
   private dialogManager: DialogManagerService,
   private ui: UIService,
-  private _session: SessionService
+  private _session: SessionService,
+  private _db: DatabaseManagementService
  ) {}
 
  openConnectionDialog() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatRadioGroup } from '@angular/material';
 import { SearchService } from '../services/search.service';
+import { DatabaseManagementService } from '../services/database-management.service';
 
 @Component({
   selector: 'app-charge-workspace-dialog',
@@ -10,7 +11,7 @@ import { SearchService } from '../services/search.service';
 export class ChargeWorkspaceDialogComponent implements OnInit {
   value: string;
   content: string;
-  constructor(private _search: SearchService) { }
+  constructor(private _search: SearchService, private _db: DatabaseManagementService) { }
 
   ngOnInit() {
   }
@@ -31,5 +32,10 @@ export class ChargeWorkspaceDialogComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  reload() {
+    this._db.ngOnInit();
+    this._db.updateAfterFilter(this._search.ws);
   }
 }

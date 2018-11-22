@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
     layer.transparencia = this.value/10;
     layer.figuras= new Object();
     this.db.loading = true;
-    this.db.getWsCount(layer);
+    this.db.updateShapes(layer);
   }
 
 }

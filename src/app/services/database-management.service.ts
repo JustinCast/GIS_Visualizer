@@ -105,6 +105,12 @@ export class DatabaseManagementService implements OnInit {
   }
  }
 
+ updateAfterFilter(ws: WorkSpace) {
+  ws.capas.forEach(c => {
+    this.updateShapes(c);
+  });
+ }
+
  updateShapes(layer: Layer) {
   layer.actualizarFiguras = function() {
    this.updateShapes(this);
@@ -174,7 +180,7 @@ export class DatabaseManagementService implements OnInit {
    y_min: this.ws.ymin,
    description: wsTosave.description,
    date: wsTosave.date,
-   layers: JSON.stringify(this.cleanGeom(this.ws.capas))
+   capas: JSON.stringify(this.cleanGeom(this.ws.capas))
   });
  }
 
