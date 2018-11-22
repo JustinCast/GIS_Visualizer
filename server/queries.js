@@ -72,7 +72,6 @@ async function getWsCount(req, res) {
     req.params.user
    ])
    .then(c => {
-    console.log(c.rows[0].count);
     if (c.rows[0].count > 0) res.status(200).send(c.rows[0]);
     else res.status(200).send(false);
    });
@@ -98,7 +97,7 @@ async function initial(req, res) {
       ["usr_p3bd2"]
      )
      .then(layer => {
-      console.log(layer.rows[0]);
+      console.log(layer.rows[0].layer);
       res.status(200).send(layer.rows[0].layer);
      });
    }
@@ -174,7 +173,7 @@ async function searchByName(req, res){
      });
      await client.connect();
      client.query("SELECT * FROM workspace WHERE name = $1", [req.params.name])
-     .then(result => {res.status(200).send(result.rows[0]); console.log(result)})
+     .then(result => {res.status(200).send(result.rows[0]); })
      .catch(err => console.log(err));
   } catch (error) {
     console.log(error);

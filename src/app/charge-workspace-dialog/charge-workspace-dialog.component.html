@@ -17,3 +17,11 @@
 <div class="container mt-10">
  <p class="text-secondary text-center"><i>Results will apear here...</i></p>
 </div>
+<ul *ngIf="_search.ws !== undefined">
+    <li><strong>Xmin: </strong>{{_search.ws.x_min}}</li>
+    <li><strong>Ymin: </strong>{{_search.ws.y_min}}</li>
+    <li><strong>Xmax: </strong>{{_search.ws.x_max}}</li>
+    <li><strong>Ymax: </strong>{{_search.ws.y_max}}</li>
+    <li><strong>Width: </strong>{{_search.ws.width}}</li>
+    <li><strong>Height: </strong>{{_search.ws.height}}</li>
+</ul>
